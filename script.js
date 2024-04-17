@@ -1,5 +1,8 @@
 let deck = [];
 
+generateDeck();
+console.log(deck);
+
 function generateDeck() {
     for (let i = 0; i < 4; i++) {
         for (let j = 1; j < 14; j++) {
@@ -49,4 +52,17 @@ function generateDeck() {
             deck.push(card);
         }
     }
+}
+
+
+function getRandomCardObject() {
+    return Math.floor(Math.random() * deck.length);
+}
+
+function getRandomCard() {
+    return deck.splice(getRandomCardObject(), 1);
+}
+
+function drawCard() {
+    console.log(getRandomCard()[0].name);
 }
