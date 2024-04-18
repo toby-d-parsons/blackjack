@@ -61,8 +61,8 @@ function getRandomCard() {
     return deck.splice(getRandomCardObject(), 1);
 }
 
-function drawCard(person) {
-    person.push(getRandomCard()[0]);
+function drawCard(hand) {
+    hand.push(getRandomCard()[0]);
 }
 
 function initialDraw() {
@@ -81,10 +81,22 @@ function playGame() {
     let dealerHandValue = handValue(dealerHand);
     console.log(playerHandValue);
     console.log(dealerHandValue);
-}
+    checkWin();
 
-function containsAce(hand) {
-    return (hand.some((card) => card.rank === 'ace'))
+    function checkWin() {
+        if (check21(playerHandValue) && check21(dealerHandValue)) {
+            console.log("It's a draw!");
+        } else if (check21(playerHandValue)) {
+            console.log("You win!") 
+        } else if (check21(dealerHandValue)) {
+            console.log("You lose!");
+        } else {
+            console.log("No winners yet");
+        }
+        function check21(hand) {
+            return hand.some((element) => element === 21);
+        }
+    }
 }
 
 playGame();
