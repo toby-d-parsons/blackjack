@@ -1,7 +1,6 @@
 let deck = [];
-
-generateDeck();
-console.log(deck);
+let playerHand = [];
+let dealerHand = [];
 
 function generateDeck() {
     for (let i = 0; i < 4; i++) {
@@ -39,7 +38,7 @@ function generateDeck() {
                 } else if (j >= 11) {
                     return 10;
                 } else if (j == 1) {
-                    return [1, 11]; // can use Array.isArray(select this blackjack value) to use this and non array values together later
+                    return [1, 11];
                 }
             }
 
@@ -54,7 +53,6 @@ function generateDeck() {
     }
 }
 
-
 function getRandomCardObject() {
     return Math.floor(Math.random() * deck.length);
 }
@@ -63,6 +61,112 @@ function getRandomCard() {
     return deck.splice(getRandomCardObject(), 1);
 }
 
-function drawCard() {
-    console.log(getRandomCard()[0].name);
+function drawCard(person) {
+    person.push(getRandomCard()[0]);
 }
+
+function initialDraw() {
+    drawCard(playerHand);
+    drawCard(dealerHand);
+    drawCard(playerHand);
+    drawCard(dealerHand);
+    console.log("Player hand: " + playerHand[0].name + " and " + playerHand[1].name);
+    console.log("Dealer hand: " + dealerHand[0].name + " and " + dealerHand[1].name);
+}
+
+function playGame() {
+    generateDeck();
+    initialDraw();
+    let playerHandValue = handValue(playerHand);
+    let dealerHandValue = handValue(dealerHand);
+    console.log(playerHandValue);
+    console.log(dealerHandValue);
+}
+
+function containsAce(hand) {
+    return (hand.some((card) => card.rank === 'ace'))
+}
+
+playGame();
+
+function handValue(hand) {
+    let handValue = [];
+    let aceCards = hand.filter((card) => card.rank == 'ace');
+    let nonAceCards = hand.filter((card) => card.rank != 'ace');
+    let aceValues = getSumOfAceIterations();
+    let nonAceValue = nonAceCards.reduce((acc, currentValue) => {
+        return acc + currentValue.blackjackValue;
+    }, 0);
+
+    (aceCards.length > 0) ? handValue = (getSumAceNonAce()) : handValue.push(nonAceValue);
+
+    function getSumAceNonAce() {
+        return aceValues.map((x) => x + nonAceValue);
+    }
+
+    function getSumOfAceIterations() {
+        let tempArr = [];
+        let totalsArr = [1, 11];
+        for (let k = 0; k < aceCards.length - 1; k++) {
+            totalsArr.forEach((element) => {
+                tempArr.push(element + 1);
+                tempArr.push(element + 11);
+            });
+            totalsArr = tempArr;
+            tempArr = [];
+        }
+        return Array.from(new Set(totalsArr)); // Returns one of each value
+    }
+    return handValue;
+}
+
+/* let testHand = [
+    {
+        "name": "10 of diamonds",
+        "suit": "diamonds",
+        "rank": "10",
+        "blackjackValue": 10
+    },
+    {
+        "name": "10 of diamonds",
+        "suit": "diamonds",
+        "rank": "10",
+        "blackjackValue": 10
+    },
+    {
+        "name": "ace of clubs",
+        "suit": "clubs",
+        "rank": "ace",
+        "blackjackValue": [
+            1,
+            11
+        ]
+    },
+    {
+        "name": "ace of spades",
+        "suit": "spades",
+        "rank": "ace",
+        "blackjackValue": [
+            1,
+            11
+        ]
+    },
+    {
+        "name": "ace of hearts",
+        "suit": "hearts",
+        "rank": "ace",
+        "blackjackValue": [
+            1,
+            11
+        ]
+    },
+    {
+        "name": "ace of hearts",
+        "suit": "hearts",
+        "rank": "ace",
+        "blackjackValue": [
+            1,
+            11
+        ]
+    }
+] */
