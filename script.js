@@ -1,6 +1,8 @@
 let deck = [];
 let playerHand = [];
 let dealerHand = [];
+let playerHandValue;
+let dealerHandValue;
 
 function generateDeck() {
     for (let i = 0; i < 4; i++) {
@@ -77,29 +79,43 @@ function initialDraw() {
 function playGame() {
     generateDeck();
     initialDraw();
-    let playerHandValue = handValue(playerHand);
-    let dealerHandValue = handValue(dealerHand);
+    playerHandValue = handValue(playerHand);
+    dealerHandValue = handValue(dealerHand);
     console.log(playerHandValue);
     console.log(dealerHandValue);
     checkWin();
-
-    function checkWin() {
-        if (check21(playerHandValue) && check21(dealerHandValue)) {
-            console.log("It's a draw!");
-        } else if (check21(playerHandValue)) {
-            console.log("You win!") 
-        } else if (check21(dealerHandValue)) {
-            console.log("You lose!");
-        } else {
-            console.log("No winners yet");
-        }
-        function check21(hand) {
-            return hand.some((element) => element === 21);
-        }
-    }
+    checkLose();
 }
 
 playGame();
+
+function checkWin() {
+    if (isBlackjack(playerHandValue) && isBlackjack(dealerHandValue)) {
+        console.log("It's a draw!");
+    } else if (isBlackjack(playerHandValue)) {
+        console.log("You win!") 
+    } else if (isBlackjack(dealerHandValue)) {
+        console.log("You lose!");
+    } else {
+        console.log("No winners yet");
+    }
+    function isBlackjack(hand) {
+        return hand.some((value) => value === 21);
+    }
+}
+
+function checkLose() {
+    if (isBust(playerHandValue)) {
+        console.log("You lose!");
+    } else if (isBust(dealerHandValue)) {
+        console.log("You win!") 
+    } else {
+        console.log("No losers yet");
+    }
+    function isBust(hand) {
+        return hand.every((value) => value > 21);
+    }
+}
 
 function handValue(hand) {
     let handValue = [];
