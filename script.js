@@ -1,16 +1,16 @@
-const playerCont = document.querySelector("#container-player");
-const playerHandCont = document.querySelector("#player-hand");
-const playerHandValueDisplayed = document.querySelector("#player-hand-value");
-const dealerCont = document.querySelector("#container-dealer");
-const dealerHandCont = document.querySelector("#dealer-hand");
-const dealerHandValueDisplayed = document.querySelector("#dealer-hand-value");
+const playerContainer = document.querySelector("#container-player");
+const dealerContainer = document.querySelector("#container-dealer");
 let deck = [];
-let playerHand = [];
-let dealerHand = [];
-let playerHandValue;
-let dealerHandValue;
+let player = {
+    value: [],
+    hand: []
+};
+let dealer = {
+    value: [],
+    hand: []
+};
 
-function generateDeck() {
+function generateDeck() {   
     for (let i = 0; i < 4; i++) {
         for (let j = 1; j < 14; j++) {
             function getSuit() {
@@ -69,7 +69,8 @@ function getRandomCard() {
     return deck.splice(getRandomCardObject(), 1);
 }
 
-function drawCard(hand, player) {
+function drawCard(drawer, handContainer) {
+    let hand = drawer.hand;
     let card = getRandomCard();
     hand.push(card[0]);
     const cardContainer = Object.assign(document.createElement("div"), {
@@ -87,24 +88,23 @@ function drawCard(hand, player) {
     })
     cardContainer.appendChild(cardText);
     cardContainer.appendChild(image);
-    player.appendChild(cardContainer);
+    handContainer.appendChild(cardContainer);
+    drawer.value = handValue(drawer.hand);
+    playerContainer.querySelector(".hand-value").textContent = player.value;
+    dealerContainer.querySelector(".hand-value").textContent = dealer.value;
+    checkGameStatus();
 }
 
 function initialDraw() {
-    drawCard(playerHand, playerHandCont);
-    drawCard(dealerHand, dealerHandCont);
-    drawCard(playerHand, playerHandCont);
-    drawCard(dealerHand, dealerHandCont);
+    drawCard(player, playerContainer.querySelector(".container-hand"));
+    drawCard(dealer, dealerContainer.querySelector(".container-hand"));
+    drawCard(player, playerContainer.querySelector(".container-hand"));
+    drawCard(dealer, playerContainer.querySelector(".container-hand"));
 }
 
 function playGame() {
     generateDeck();
     initialDraw();
-    playerHandValue = handValue(playerHand);
-    playerHandValueDisplayed.textContent = playerHandValue;
-    dealerHandValue = handValue(dealerHand);
-    dealerHandValueDisplayed.textContent = dealerHandValue;
-    checkGameStatus();
     setupHitMeButton();
 }
 
@@ -113,18 +113,18 @@ function setupHitMeButton() {
         type: "button",
         textContent: "Hit Me"
     });
-    playerCont.appendChild(hitMeButton);
-    hitMeButton.addEventListener("click", () => drawCard(playerHand, playerHandCont));
+    playerContainer.appendChild(hitMeButton);
+    hitMeButton.addEventListener("click", () => drawCard(player, playerContainer.querySelector(".container-hand")));
 }
 
 playGame();
 
 function checkGameStatus() {
-    if (isBlackjack(playerHandValue) && isBlackjack(dealerHandValue)) {
+    if (isBlackjack(player.value) && isBlackjack(dealer.value)) {
         console.log("It's a draw!");
-    } else if (isBlackjack(playerHandValue) || isBust(dealerHandValue)) {
+    } else if (isBlackjack(player.value) || isBust(dealer.value)) {
         console.log("You win!") 
-    } else if (isBlackjack(dealerHandValue) || isBust(playerHandValue)) {
+    } else if (isBlackjack(dealer.value) || isBust(player.value)) {
         console.log("You lose!");
     } else {
         console.log("No winners yet");

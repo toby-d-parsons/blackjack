@@ -6,11 +6,11 @@
     display: flex;
 }
 
-#dealer-hand {
+.container-hand {
     display: flex;
 }
 
-#dealer-hand-value {
+.hand-value {
     display: flex;
     padding: 25px;
     justify-content: center;
@@ -19,17 +19,6 @@
 
 #container-player {
     display: flex;
-}
-
-#player-hand {
-    display: flex;
-}
-
-#player-hand-value {
-    display: flex;
-    padding: 25px;
-    justify-content: center;
-    align-items: center;
 }
 
 .container-card {
