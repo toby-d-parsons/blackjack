@@ -237,7 +237,7 @@ function win() {
         textContent: "You win!\nPlay Again?"
     });
     gameControlsContainer.appendChild(playAgainButton);
-    //playAgainButton.addEventListener("click", () => endPlayerTurn())
+    playAgainButton.addEventListener("click", () => clearBoardAndPlayAgain())
 }
 
 function lose() {
@@ -248,7 +248,7 @@ function lose() {
         textContent: "You lose!\nPlay Again?"
     });
     gameControlsContainer.appendChild(playAgainButton);
-    //playAgainButton.addEventListener("click", () => endPlayerTurn())
+    playAgainButton.addEventListener("click", () => clearBoardAndPlayAgain())
 }
 
 function draw() {
@@ -259,56 +259,28 @@ function draw() {
         textContent: "It's a tie!\nPlay Again?"
     });
     gameControlsContainer.appendChild(playAgainButton);
-    //playAgainButton.addEventListener("click", () => endPlayerTurn())
+    playAgainButton.addEventListener("click", () => clearBoardAndPlayAgain())
 }
 
-/* let testHand = [
-    {
-        "name": "10 of diamonds",
-        "suit": "diamonds",
-        "rank": "10",
-        "blackjackValue": 10
-    },
-    {
-        "name": "10 of diamonds",
-        "suit": "diamonds",
-        "rank": "10",
-        "blackjackValue": 10
-    },
-    {
-        "name": "ace of clubs",
-        "suit": "clubs",
-        "rank": "ace",
-        "blackjackValue": [
-            1,
-            11
-        ]
-    },
-    {
-        "name": "ace of spades",
-        "suit": "spades",
-        "rank": "ace",
-        "blackjackValue": [
-            1,
-            11
-        ]
-    },
-    {
-        "name": "ace of hearts",
-        "suit": "hearts",
-        "rank": "ace",
-        "blackjackValue": [
-            1,
-            11
-        ]
-    },
-    {
-        "name": "ace of hearts",
-        "suit": "hearts",
-        "rank": "ace",
-        "blackjackValue": [
-            1,
-            11
-        ]
+function clearBoardAndPlayAgain() {
+    player = {
+        value: [],
+        hand: []
+    };
+    dealer = {
+        value: [],
+        hand: []
+    };
+    removeAllChild(gameControlsContainer);
+    removeAllChild(playerContainer.querySelector(".container-hand"));
+    removeAllChild(dealerContainer.querySelector(".container-hand"));
+    playerContainer.querySelector(".hand-value").textContent = "";
+    dealerContainer.querySelector(".hand-value").textContent = "";
+    startGame();
+}
+
+function removeAllChild(parent) {
+    while (parent.lastElementChild) {
+        parent.removeChild(parent.lastElementChild);
     }
-] */
+}
