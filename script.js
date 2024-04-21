@@ -106,9 +106,9 @@ function initialDraw() {
 
 function startGame() {
     generateDeck();
-    initialDraw();
     setupHitMeButton();
     setupStandButton();
+    initialDraw();
 }
 
 function setupHitMeButton() {
@@ -132,10 +132,7 @@ function setupStandButton() {
 }
 
 function endPlayerTurn() {
-    const hitMeButton = document.getElementById("hit-me");
-    const standButton = document.getElementById("stand");
-    playerContainer.removeChild(hitMeButton);
-    playerContainer.removeChild(standButton);
+    removeInputButtons();
     console.log("Turn ended!");
     dealerTurn();
 }
@@ -144,10 +141,13 @@ startGame();
 
 function checkGameStatus() {
     if (isBlackjack(player.value) && isBlackjack(dealer.value)) {
+        removeInputButtons();
         alert("It's a draw!");
     } else if (isBlackjack(player.value) || isBust(dealer.value)) {
+        removeInputButtons();
         alert("You win!") 
     } else if (isBlackjack(dealer.value) || isBust(player.value)) {
+        removeInputButtons();
         alert("You lose!");
     }
     function isBlackjack(hand) {
@@ -201,13 +201,18 @@ function dealerTurn() {
     }
 }
 
+function removeInputButtons() {
+    const hitMeButton = document.getElementById("hit-me");
+    const standButton = document.getElementById("stand");
+    hitMeButton ? playerContainer.removeChild(hitMeButton) : false;
+    standButton ? playerContainer.removeChild(standButton) : false;
+}
+
 function endOfGame() {
     let playerValue = player.value;
     let dealerValue = dealer.value;
     let playerBestHandValue = bestHandValue(playerValue);
     let dealerBestHandValue = bestHandValue(dealerValue);
-    console.log(playerBestHandValue);
-    console.log(dealerBestHandValue);
 
     playerBestHandValue > dealerBestHandValue ? console.log("you win!") :
     playerBestHandValue < dealerBestHandValue ? console.log("you lose") :
