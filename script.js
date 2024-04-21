@@ -1,5 +1,6 @@
 const playerContainer = document.querySelector("#container-player");
 const dealerContainer = document.querySelector("#container-dealer");
+const gameControlsContainer = document.querySelector('#container-game-controls');
 let deck = [];
 let player = {
     value: [],
@@ -81,10 +82,10 @@ function drawCard(drawer, handContainer) {
         textContent: card[0].name
     });
     const image = Object.assign(document.createElement("img"), {
-        src: "https://placehold.co/200.png",
+        src: "https://placehold.co/150.png",
         alt: "placeholder image",
-        width: 200,
-        height: 200
+        //width: 150,
+        //height: 150
     })
     cardContainer.appendChild(cardText);
     cardContainer.appendChild(image);
@@ -115,9 +116,10 @@ function setupHitMeButton() {
     const hitMeButton = Object.assign(document.createElement("button"), {
         id: "hit-me",
         type: "button",
+        className: "game-controls",
         textContent: "Hit Me"
     });
-    playerContainer.appendChild(hitMeButton);
+    gameControlsContainer.appendChild(hitMeButton);
     hitMeButton.addEventListener("click", () => drawCard(player, playerContainer.querySelector(".container-hand")));
 }
 
@@ -125,9 +127,10 @@ function setupStandButton() {
     const standButton = Object.assign(document.createElement("button"), {
         id: "stand",
         type: "button",
+        className: "game-controls",
         textContent: "Stand"
     });
-    playerContainer.appendChild(standButton);
+    gameControlsContainer.appendChild(standButton);
     standButton.addEventListener("click", () => endPlayerTurn())
 }
 
@@ -204,8 +207,8 @@ function dealerTurn() {
 function removeInputButtons() {
     const hitMeButton = document.getElementById("hit-me");
     const standButton = document.getElementById("stand");
-    hitMeButton ? playerContainer.removeChild(hitMeButton) : false;
-    standButton ? playerContainer.removeChild(standButton) : false;
+    hitMeButton ? gameControlsContainer.removeChild(hitMeButton) : false;
+    standButton ? gameControlsContainer.removeChild(standButton) : false;
 }
 
 function endOfGame() {

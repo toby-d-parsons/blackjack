@@ -2,19 +2,37 @@
     border: 1px red solid;
 }
 
+main {
+    max-width: 1000px;
+    margin: auto;
+}
+
 #container-dealer {
     display: flex;
 }
 
 .container-hand {
     display: flex;
+    width: 90%;
+    justify-content: flex-start;
 }
 
 .hand-value {
     display: flex;
-    padding: 25px;
     justify-content: center;
     align-items: center;
+    width: 10%;
+}
+
+#container-game-controls {
+    height: 50px;
+    max-width: 200px;
+    margin: auto;
+    display: flex;
+}
+
+.game-controls {
+    width: 50%;
 }
 
 #container-player {
