@@ -141,19 +141,17 @@ playGame();
 
 function checkGameStatus() {
     if (isBlackjack(player.value) && isBlackjack(dealer.value)) {
-        console.log("It's a draw!");
+        alert("It's a draw!");
     } else if (isBlackjack(player.value) || isBust(dealer.value)) {
-        console.log("You win!") 
+        alert("You win!") 
     } else if (isBlackjack(dealer.value) || isBust(player.value)) {
-        console.log("You lose!");
-    } else {
-        console.log("No winners yet");
+        alert("You lose!");
     }
     function isBlackjack(hand) {
         return hand.some((value) => value === 21);
     }
     function isBust(hand) {
-        return hand.every((value) => value > 21);
+        return (hand.length === 0) ? false : hand.every((value) => value > 21);
     }
 }
 
