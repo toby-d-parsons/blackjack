@@ -102,7 +102,7 @@ function initialDraw() {
     drawCard(dealer, playerContainer.querySelector(".container-hand"));
 }
 
-function playGame() {
+function startGame() {
     generateDeck();
     initialDraw();
     setupHitMeButton();
@@ -137,7 +137,7 @@ function endPlayerTurn() {
     console.log("Turn ended!");
 }
 
-playGame();
+startGame();
 
 function checkGameStatus() {
     if (isBlackjack(player.value) && isBlackjack(dealer.value)) {
