@@ -1,3 +1,6 @@
+const playerCont = document.querySelector("#container-player");
+const playerHandCont = document.querySelector("#player-hand");
+const playerHandValueDisplayed = document.querySelector("#player-hand-value");
 let deck = [];
 let playerHand = [];
 let dealerHand = [];
@@ -64,7 +67,24 @@ function getRandomCard() {
 }
 
 function drawCard(hand) {
-    hand.push(getRandomCard()[0]);
+    let card = getRandomCard();
+    hand.push(card[0]);
+    const cardContainer = Object.assign(document.createElement("div"), {
+        className: "container-card",
+    });
+    const cardText = Object.assign(document.createElement("b"), {
+        className: "card-text",
+        textContent: card[0].name
+    });
+    const image = Object.assign(document.createElement("img"), {
+        src: "https://placehold.co/200.png",
+        alt: "placeholder image",
+        width: 200,
+        height: 200
+    })
+    cardContainer.appendChild(cardText);
+    cardContainer.appendChild(image);
+    playerHandCont.appendChild(cardContainer);
 }
 
 function initialDraw() {
@@ -80,6 +100,7 @@ function playGame() {
     generateDeck();
     initialDraw();
     playerHandValue = handValue(playerHand);
+    playerHandValueDisplayed.textContent = playerHandValue;
     dealerHandValue = handValue(dealerHand);
     console.log(playerHandValue);
     console.log(dealerHandValue);

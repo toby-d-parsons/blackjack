@@ -1,3 +1,42 @@
 * {
-    // border: 1px red solid;
+    border: 1px red solid;
+}
+
+#container-dealer {
+    display: flex;
+}
+
+#dealer-hand {
+    padding: 50px;
+}
+
+#dealer-hand-value {
+    display: flex;
+    padding: 25px;
+    justify-content: center;
+    align-items: center;
+}
+
+#container-player {
+    display: flex;
+}
+
+#player-hand {
+    display: flex;
+}
+
+#player-hand-value {
+    display: flex;
+    padding: 25px;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-text {
+    text-align: center;
 }
