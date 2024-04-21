@@ -191,6 +191,8 @@ function dealerTurn() {
     let dealerValue = dealer.value;
     if (dealerValue.some((value) => value >= 17 && value <= 21)) {
         endOfGame();
+    } else if (dealerValue.every((value) => value > 21)) {
+        return;
     } else {
         drawCard(dealer, dealerContainer.querySelector(".container-hand"));
         dealerTurn();
