@@ -92,7 +92,9 @@ function drawCard(drawer, handContainer) {
     drawer.value = handValue(drawer.hand);
     playerContainer.querySelector(".hand-value").textContent = player.value;
     dealerContainer.querySelector(".hand-value").textContent = dealer.value;
-    checkGameStatus();
+    if (player.hand.length > 1 && dealer.hand.length > 1) {
+        checkGameStatus();
+    }
 }
 
 function initialDraw() {
