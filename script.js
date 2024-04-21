@@ -145,13 +145,13 @@ startGame();
 function checkGameStatus() {
     if (isBlackjack(player.value) && isBlackjack(dealer.value)) {
         removeInputButtons();
-        alert("It's a draw!");
+        draw();
     } else if (isBlackjack(player.value) || isBust(dealer.value)) {
         removeInputButtons();
-        alert("You win!") 
+        win(); 
     } else if (isBlackjack(dealer.value) || isBust(player.value)) {
         removeInputButtons();
-        alert("You lose!");
+        lose();
     }
     function isBlackjack(hand) {
         return hand.some((value) => value === 21);
@@ -217,9 +217,9 @@ function endOfGame() {
     let playerBestHandValue = bestHandValue(playerValue);
     let dealerBestHandValue = bestHandValue(dealerValue);
 
-    playerBestHandValue > dealerBestHandValue ? console.log("you win!") :
-    playerBestHandValue < dealerBestHandValue ? console.log("you lose") :
-                                                console.log("it's a draw");
+    playerBestHandValue > dealerBestHandValue ? win() :
+    playerBestHandValue < dealerBestHandValue ? lose() :
+                                                draw();
 
     function bestHandValue(valueArray) {
         let arrayModified = valueArray
@@ -227,6 +227,39 @@ function endOfGame() {
             .sort((a, b) => b - a); // filters and sorts so highest value less than 22 so [0] equals best value
         return arrayModified[0];
     }
+}
+
+function win() {
+    const playAgainButton = Object.assign(document.createElement("button"), {
+        id: "stand",
+        type: "button",
+        className: "result-message",
+        textContent: "You win!\nPlay Again?"
+    });
+    gameControlsContainer.appendChild(playAgainButton);
+    //playAgainButton.addEventListener("click", () => endPlayerTurn())
+}
+
+function lose() {
+    const playAgainButton = Object.assign(document.createElement("button"), {
+        id: "stand",
+        type: "button",
+        className: "result-message",
+        textContent: "You lose!\nPlay Again?"
+    });
+    gameControlsContainer.appendChild(playAgainButton);
+    //playAgainButton.addEventListener("click", () => endPlayerTurn())
+}
+
+function draw() {
+    const playAgainButton = Object.assign(document.createElement("button"), {
+        id: "stand",
+        type: "button",
+        className: "result-message",
+        textContent: "It's a tie!\nPlay Again?"
+    });
+    gameControlsContainer.appendChild(playAgainButton);
+    //playAgainButton.addEventListener("click", () => endPlayerTurn())
 }
 
 /* let testHand = [

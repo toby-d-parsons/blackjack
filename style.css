@@ -35,6 +35,10 @@ main {
     width: 50%;
 }
 
+.result-message {
+    width: 100%;
+}
+
 #container-player {
     display: flex;
 }
