@@ -2,6 +2,7 @@ const playerContainer = document.querySelector("#container-player");
 const dealerContainer = document.querySelector("#container-dealer");
 const gameControlsContainer = document.querySelector('#container-game-controls');
 let deck = [];
+let discardPile = [];
 let player = {
     value: [],
     hand: []
@@ -91,8 +92,13 @@ function drawCard(drawer, handContainer) {
     drawer.value = handValue(drawer.hand);
     playerContainer.querySelector(".hand-value").textContent = player.value;
     dealerContainer.querySelector(".hand-value").textContent = dealer.value;
+    deck.length == 0 ? reshuffle() : false;
     if (player.hand.length > 1 && dealer.hand.length > 1) {
         checkGameStatus();
+    }
+    function reshuffle() {
+        deck = discardPile;
+        discardPile = [];
     }
 }
 
@@ -104,7 +110,6 @@ function initialDraw() {
 }
 
 function startGame() {
-    generateDeck();
     setupHitMeButton();
     setupStandButton();
     initialDraw();
@@ -138,6 +143,7 @@ function endPlayerTurn() {
     dealerTurn();
 }
 
+generateDeck();
 startGame();
 
 function checkGameStatus() {
@@ -261,6 +267,8 @@ function draw() {
 }
 
 function clearBoardAndPlayAgain() {
+    player.hand.forEach((card) => discardPile.push(card));
+    dealer.hand.forEach((card) => discardPile.push(card));
     player = {
         value: [],
         hand: []
