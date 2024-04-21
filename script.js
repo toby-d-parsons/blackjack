@@ -99,7 +99,7 @@ function initialDraw() {
     drawCard(player, playerContainer.querySelector(".container-hand"));
     drawCard(dealer, dealerContainer.querySelector(".container-hand"));
     drawCard(player, playerContainer.querySelector(".container-hand"));
-    drawCard(dealer, playerContainer.querySelector(".container-hand"));
+    drawCard(dealer, dealerContainer.querySelector(".container-hand"));
 }
 
 function startGame() {
@@ -135,6 +135,7 @@ function endPlayerTurn() {
     playerContainer.removeChild(hitMeButton);
     playerContainer.removeChild(standButton);
     console.log("Turn ended!");
+    dealerTurn();
 }
 
 startGame();
@@ -184,6 +185,36 @@ function handValue(hand) {
         return Array.from(new Set(totalsArr)); // Returns one of each value
     }
     return handValue;
+}
+
+function dealerTurn() {
+    let dealerValue = dealer.value;
+    if (dealerValue.some((value) => value >= 17 && value <= 21)) {
+        endOfGame();
+    } else {
+        drawCard(dealer, dealerContainer.querySelector(".container-hand"));
+        dealerTurn();
+    }
+}
+
+function endOfGame() {
+    let playerValue = player.value;
+    let dealerValue = dealer.value;
+    let playerBestHandValue = bestHandValue(playerValue);
+    let dealerBestHandValue = bestHandValue(dealerValue);
+    console.log(playerBestHandValue);
+    console.log(dealerBestHandValue);
+
+    playerBestHandValue > dealerBestHandValue ? console.log("you win!") :
+    playerBestHandValue < dealerBestHandValue ? console.log("you lose") :
+                                                console.log("it's a draw");
+
+    function bestHandValue(valueArray) {
+        let arrayModified = valueArray
+            .filter((value) => (value <= 21))
+            .sort((a, b) => b - a); // filters and sorts so highest value less than 22 so [0] equals best value
+        return arrayModified[0];
+    }
 }
 
 /* let testHand = [
