@@ -7,7 +7,7 @@
 }
 
 #dealer-hand {
-    padding: 50px;
+    display: flex;
 }
 
 #dealer-hand-value {

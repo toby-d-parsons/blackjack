@@ -1,6 +1,9 @@
 const playerCont = document.querySelector("#container-player");
 const playerHandCont = document.querySelector("#player-hand");
 const playerHandValueDisplayed = document.querySelector("#player-hand-value");
+const dealerCont = document.querySelector("#container-dealer");
+const dealerHandCont = document.querySelector("#dealer-hand");
+const dealerHandValueDisplayed = document.querySelector("#dealer-hand-value");
 let deck = [];
 let playerHand = [];
 let dealerHand = [];
@@ -66,7 +69,7 @@ function getRandomCard() {
     return deck.splice(getRandomCardObject(), 1);
 }
 
-function drawCard(hand) {
+function drawCard(hand, player) {
     let card = getRandomCard();
     hand.push(card[0]);
     const cardContainer = Object.assign(document.createElement("div"), {
@@ -84,14 +87,14 @@ function drawCard(hand) {
     })
     cardContainer.appendChild(cardText);
     cardContainer.appendChild(image);
-    playerHandCont.appendChild(cardContainer);
+    player.appendChild(cardContainer);
 }
 
 function initialDraw() {
-    drawCard(playerHand);
-    drawCard(dealerHand);
-    drawCard(playerHand);
-    drawCard(dealerHand);
+    drawCard(playerHand, playerHandCont);
+    drawCard(dealerHand, dealerHandCont);
+    drawCard(playerHand, playerHandCont);
+    drawCard(dealerHand, dealerHandCont);
     console.log("Player hand: " + playerHand[0].name + " and " + playerHand[1].name);
     console.log("Dealer hand: " + dealerHand[0].name + " and " + dealerHand[1].name);
 }
@@ -102,6 +105,7 @@ function playGame() {
     playerHandValue = handValue(playerHand);
     playerHandValueDisplayed.textContent = playerHandValue;
     dealerHandValue = handValue(dealerHand);
+    dealerHandValueDisplayed.textContent = dealerHandValue;
     console.log(playerHandValue);
     console.log(dealerHandValue);
     checkWin();
