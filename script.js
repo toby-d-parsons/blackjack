@@ -106,15 +106,35 @@ function playGame() {
     generateDeck();
     initialDraw();
     setupHitMeButton();
+    setupStandButton();
 }
 
 function setupHitMeButton() {
     const hitMeButton = Object.assign(document.createElement("button"), {
+        id: "hit-me",
         type: "button",
         textContent: "Hit Me"
     });
     playerContainer.appendChild(hitMeButton);
     hitMeButton.addEventListener("click", () => drawCard(player, playerContainer.querySelector(".container-hand")));
+}
+
+function setupStandButton() {
+    const standButton = Object.assign(document.createElement("button"), {
+        id: "stand",
+        type: "button",
+        textContent: "Stand"
+    });
+    playerContainer.appendChild(standButton);
+    standButton.addEventListener("click", () => endPlayerTurn())
+}
+
+function endPlayerTurn() {
+    const hitMeButton = document.getElementById("hit-me");
+    const standButton = document.getElementById("stand");
+    playerContainer.removeChild(hitMeButton);
+    playerContainer.removeChild(standButton);
+    console.log("Turn ended!");
 }
 
 playGame();
