@@ -84,8 +84,6 @@ function drawCard(drawer, handContainer) {
     const image = Object.assign(document.createElement("img"), {
         src: "https://placehold.co/150.png",
         alt: "placeholder image",
-        //width: 150,
-        //height: 150
     })
     cardContainer.appendChild(cardText);
     cardContainer.appendChild(image);
@@ -146,10 +144,10 @@ function checkGameStatus() {
     if (isBlackjack(player.value) && isBlackjack(dealer.value)) {
         removeInputButtons();
         draw();
-    } else if (isBlackjack(player.value) || isBust(dealer.value)) {
+    } else if (isBlackjack(player.value) || isBust(dealer.value) || (player.hand.length == 5 && !isBust(player.value))) {
         removeInputButtons();
         win(); 
-    } else if (isBlackjack(dealer.value) || isBust(player.value)) {
+    } else if (isBlackjack(dealer.value) || isBust(player.value) || (dealer.hand.length == 5 && !isBust(dealer.value))) {
         removeInputButtons();
         lose();
     }
