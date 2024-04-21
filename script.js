@@ -105,6 +105,16 @@ function playGame() {
     dealerHandValue = handValue(dealerHand);
     dealerHandValueDisplayed.textContent = dealerHandValue;
     checkGameStatus();
+    setupHitMeButton();
+}
+
+function setupHitMeButton() {
+    const hitMeButton = Object.assign(document.createElement("button"), {
+        type: "button",
+        textContent: "Hit Me"
+    });
+    playerCont.appendChild(hitMeButton);
+    hitMeButton.addEventListener("click", () => drawCard(playerHand, playerHandCont));
 }
 
 playGame();
