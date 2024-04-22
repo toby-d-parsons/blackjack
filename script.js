@@ -83,8 +83,10 @@ function drawCard(drawer, handContainer) {
         textContent: card[0].name
     });
     const image = Object.assign(document.createElement("img"), {
-        src: "https://placehold.co/150.png",
-        alt: "placeholder image",
+        src: "images/card-back-red.png",
+        alt: "playing card"
+        // src: "https://placehold.co/150.png",
+        // alt: "placeholder image",
     })
     cardContainer.appendChild(cardText);
     cardContainer.appendChild(image);
